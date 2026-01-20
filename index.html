@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YetiWings Tours & Travels</title>
+    <!-- FAVICON ADDED HERE -->
+    <link rel="icon" href="https://image2url.com/r2/default/images/1768890440838-eb7c5f0a-9d3a-409a-a9a3-8c3652f9e378.jpeg" type="image/jpeg">
+    <style>
+        /* Reset & Base */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #f5f7fa;
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        /* Main Card */
+        .card {
+            width: 100%;
+            max-width: 380px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+        
+        /* Header with Logo */
+        .header {
+            background: linear-gradient(135deg, #1e3a5f 0%, #2d4a7a 100%);
+            padding: 30px 20px;
+            text-align: center;
+            position: relative;
+        }
+        
+        .logo-container {
+            margin-bottom: 15px;
+        }
+        
+        .logo {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            border: 3px solid #f59e0b;
+            padding: 5px;
+            background: white;
+            margin: 0 auto;
+            overflow: hidden;
+        }
+        
+        .logo img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+        
+        .company-name {
+            color: white;
+            font-size: 22px;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        
+        .tagline {
+            color: #f59e0b;
+            font-size: 14px;
+            font-weight: 500;
+        }
+        
+        /* Contact Grid */
+        .contact-section {
+            padding: 25px 20px;
+        }
+        
+        .contact-row {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+        
+        .contact-item {
+            background: #f8fafc;
+            border-radius: 12px;
+            padding: 15px;
+            text-decoration: none;
+            display: block;
+            border: 2px solid #e2e8f0;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+        
+        .contact-item:hover {
+            border-color: #f59e0b;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(245, 158, 11, 0.1);
+        }
+        
+        .icon-container {
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 8px;
+        }
+        
+        .icon-container i {
+            font-size: 18px;
+            color: white;
+        }
+        
+        .item-name {
+            font-size: 13px;
+            font-weight: 600;
+            color: #1e293b;
+            margin-bottom: 3px;
+        }
+        
+        .item-value {
+            font-size: 11px;
+            color: #64748b;
+            font-weight: 500;
+        }
+        
+        /* Icon Colors */
+        .website .icon-container { background: #2563eb; }
+        .email .icon-container { background: #dc2626; }
+        .whatsapp .icon-container { background: #25D366; }
+        .facebook .icon-container { background: #1877F2; }
+        .instagram .icon-container { 
+            background: linear-gradient(45deg, #405DE6, #833AB4, #C13584, #FD1D1D);
+        }
+        .tiktok .icon-container { 
+            background: linear-gradient(45deg, #000000, #25F4EE, #FE2C55);
+        }
+        
+        /* Save Button */
+        .save-section {
+            padding: 20px 20px 25px;
+            text-align: center;
+        }
+        
+        .save-btn {
+            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+            color: white;
+            border: none;
+            padding: 16px 30px;
+            border-radius: 12px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.3s ease;
+        }
+        
+        .save-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(245, 158, 11, 0.25);
+        }
+        
+        /* Footer */
+        .footer {
+            padding: 20px;
+            text-align: center;
+            border-top: 1px solid #e2e8f0;
+            color: #64748b;
+            font-size: 12px;
+        }
+        
+        .footer p {
+            margin: 5px 0;
+        }
+        
+        .qr-text {
+            color: #f59e0b;
+            font-weight: 500;
+        }
+        
+        /* Toast Notification */
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #f59e0b;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            z-index: 1000;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+        
+        .toast.show {
+            opacity: 1;
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="card">
+        <!-- Header with Logo -->
+        <div class="header">
+            <div class="logo-container">
+                <div class="logo">
+                    <img src="https://image2url.com/r2/default/images/1768887370197-0f622bf8-0b26-4c10-8768-78b23c58ffef.jpeg" 
+                         alt="YetiWings Logo">
+                </div>
+            </div>
+            <h1 class="company-name">YetiWings Tours & Travels</h1>
+            <p class="tagline">Your Gateway to the Himalayas</p>
+        </div>
+        
+        <!-- Contact Grid -->
+        <div class="contact-section">
+            <!-- Row 1 -->
+            <div class="contact-row">
+                <a href="https://yetiwingstours.github.io" target="_blank" class="contact-item website">
+                    <div class="icon-container">
+                        <i class="fas fa-globe"></i>
+                    </div>
+                    <div class="item-name">Website</div>
+                    <div class="item-value">yetiwingstours.github.io</div>
+                </a>
+                
+                <!-- EMAIL SECTION UPDATED - Opens email client AND copies to clipboard -->
+                <a href="mailto:infoyetiwings@gmail.com" class="contact-item email" id="emailLink">
+                    <div class="icon-container">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <div class="item-name">Email</div>
+                    <div class="item-value">infoyetiwings@gmail.com</div>
+                </a>
+            </div>
+            
+            <!-- Row 2 -->
+            <div class="contact-row">
+                <a href="https://wa.me/9779840106877" target="_blank" class="contact-item whatsapp">
+                    <div class="icon-container">
+                        <i class="fab fa-whatsapp"></i>
+                    </div>
+                    <div class="item-name">WhatsApp</div>
+                    <div class="item-value">9840106877</div>
+                </a>
+                
+                <a href="https://www.facebook.com/people/YetiWings-Tours-Travels/61555792936999/" target="_blank" class="contact-item facebook">
+                    <div class="icon-container">
+                        <i class="fab fa-facebook-f"></i>
+                    </div>
+                    <div class="item-name">Facebook</div>
+                    <div class="item-value">YetiWings Tours</div>
+                </a>
+            </div>
+            
+            <!-- Row 3 -->
+            <div class="contact-row">
+                <a href="https://www.instagram.com/yetiwings_tours_and_travels" target="_blank" class="contact-item instagram">
+                    <div class="icon-container">
+                        <i class="fab fa-instagram"></i>
+                    </div>
+                    <div class="item-name">Instagram</div>
+                    <div class="item-value">@yetiwings_tours</div>
+                </a>
+                
+                <a href="https://www.tiktok.com/@yetiwings.tours.t" target="_blank" class="contact-item tiktok">
+                    <div class="icon-container">
+                        <i class="fab fa-tiktok"></i>
+                    </div>
+                    <div class="item-name">TikTok</div>
+                    <div class="item-value">@yetiwings.tours.t</div>
+                </a>
+            </div>
+            
+            <!-- Save Button -->
+            <div class="save-section">
+                <button class="save-btn" onclick="saveContact()">
+                    <i class="fas fa-download"></i>
+                    Save WhatsApp Number
+                </button>
+            </div>
+        </div>
+        
+        <!-- Footer -->
+        <div class="footer">
+            <p>© <span id="currentYear"></span> YetiWings Tours & Travels</p>
+            <p class="qr-text">Scan QR code to save contact</p>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="toast">Email copied to clipboard!</div>
+
+    <script>
+        // Set current year
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+        
+        // EMAIL FUNCTION UPDATED - Opens email client AND copies to clipboard
+        document.getElementById('emailLink').addEventListener('click', function(e) {
+            // First, try to copy email to clipboard
+            if (navigator.clipboard) {
+                navigator.clipboard.writeText('infoyetiwings@gmail.com')
+                    .then(() => {
+                        showToast('Email copied to clipboard!');
+                    })
+                    .catch(() => {
+                        // If clipboard fails, still open email client
+                        showToast('Opening email client...');
+                    });
+            } else {
+                // Fallback for older browsers
+                try {
+                    const textArea = document.createElement('textarea');
+                    textArea.value = 'infoyetiwings@gmail.com';
+                    document.body.appendChild(textArea);
+                    textArea.select();
+                    document.execCommand('copy');
+                    document.body.removeChild(textArea);
+                    showToast('Email copied to clipboard!');
+                } catch (err) {
+                    showToast('Opening email client...');
+                }
+            }
+            
+            // The mailto: link will still open email client as normal
+            // We don't prevent default, so it opens email client too
+        });
+        
+        // Save contact function (WhatsApp only)
+        function saveContact() {
+            // Create vCard with WhatsApp number
+            const vcard = `BEGIN:VCARD
+VERSION:3.0
+FN:YetiWings Tours & Travels
+TEL;TYPE=CELL,WHATSAPP:+9779840106877
+NOTE:Contact for tour bookings and inquiries
+END:VCARD`;
+            
+            // Create and download file
+            const blob = new Blob([vcard], { type: 'text/vcard' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'YetiWings-WhatsApp.vcf';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            
+            // Show toast
+            showToast('WhatsApp number saved!');
+        }
+        
+        // Show toast notification
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.classList.add('show');
+            
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 2000);
+        }
+        
+        // Handle logo image error
+        const logoImg = document.querySelector('.logo img');
+        if (logoImg) {
+            logoImg.onerror = function() {
+                this.style.display = 'none';
+                const logoDiv = this.parentElement;
+                logoDiv.innerHTML = '<i class="fas fa-mountain" style="font-size: 40px; color: #1e3a5f; line-height: 90px;"></i>';
+            };
+        }
+        
+        // Handle favicon error
+        const favicon = document.querySelector('link[rel="icon"]');
+        if (favicon) {
+            favicon.onerror = function() {
+                // Create a simple favicon fallback
+                const canvas = document.createElement('canvas');
+                canvas.width = 32;
+                canvas.height = 32;
+                const ctx = canvas.getContext('2d');
+                
+                // Draw simple YT icon
+                ctx.fillStyle = '#1e3a5f';
+                ctx.fillRect(0, 0, 32, 32);
+                
+                ctx.fillStyle = '#f59e0b';
+                ctx.font = 'bold 20px Arial';
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'middle';
+                ctx.fillText('YW', 16, 16);
+                
+                // Convert to data URL
+                const dataURL = canvas.toDataURL('image/png');
+                
+                // Create new favicon
+                const newFavicon = document.createElement('link');
+                newFavicon.rel = 'icon';
+                newFavicon.href = dataURL;
+                document.head.appendChild(newFavicon);
+            };
+        }
+    </script>
+</body>
+</html>
