@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
+    <title>YetiWings Tours & Travels</title>
+    <link rel="icon" href="https://image2url.com/r2/default/images/1768890440838-eb7c5f0a-9d3a-409a-a9a3-8c3652f9e378.jpeg" type="image/jpeg">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background: linear-gradient(135deg, #e6f7ff 0%, #f0f9ff 100%);
+            padding: 16px;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .card {
+            width: 100%;
+            max-width: 400px;
+            background: white;
+            border-radius: 28px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08), 0 8px 20px rgba(135, 206, 235, 0.2);
+            overflow: hidden;
+            border: 1px solid rgba(135, 206, 235, 0.3);
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #87CEEB 0%, #4A90E2 100%);
+            padding: 32px 20px;
+            text-align: center;
+        }
+        
+        .logo-container {
+            margin-bottom: 16px;
+        }
+        
+        .logo {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            border: 3px solid white;
+            padding: 5px;
+            background: white;
+            margin: 0 auto;
+            overflow: hidden;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .logo img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+        
+        .company-name {
+            color: white;
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 6px;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+            letter-spacing: -0.3px;
+        }
+        
+        .tagline {
+            color: white;
+            font-size: 15px;
+            font-weight: 500;
+            opacity: 0.95;
+        }
+        
+        .contact-section {
+            padding: 24px 20px 28px;
+        }
+        
+        .contact-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+            margin-bottom: 14px;
+        }
+        
+        .contact-item {
+            background: #f8fafc;
+            border-radius: 18px;
+            padding: 16px 8px;
+            text-decoration: none;
+            display: block;
+            border: 1.5px solid #e2f0f5;
+            transition: all 0.2s ease;
+            text-align: center;
+            cursor: pointer;
+        }
+        
+        .contact-item:active {
+            transform: scale(0.97);
+            background: #f1f5f9;
+        }
+        
+        .icon-container {
+            width: 48px;
+            height: 48px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 10px;
+            background: linear-gradient(135deg, #87CEEB 0%, #4A90E2 100%);
+        }
+        
+        .icon-container i {
+            font-size: 24px;
+            color: white;
+        }
+        
+        .item-name {
+            font-size: 15px;
+            font-weight: 600;
+            color: #0f172a;
+            margin-bottom: 4px;
+        }
+        
+        .item-value {
+            font-size: 12px;
+            color: #475569;
+            font-weight: 500;
+            word-break: break-word;
+        }
+        
+        /* Brand gradients */
+        .whatsapp .icon-container {
+            background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+        }
+        .facebook .icon-container {
+            background: linear-gradient(135deg, #1877F2 0%, #0d5dbd 100%);
+        }
+        .instagram .icon-container {
+            background: linear-gradient(45deg, #405DE6, #833AB4, #C13584, #FD1D1D);
+        }
+        .tiktok .icon-container {
+            background: linear-gradient(135deg, #000000, #25F4EE, #FE2C55);
+        }
+        .website .icon-container {
+            background: linear-gradient(135deg, #3b82f6, #1e3a8a);
+        }
+        
+        /* Email button – full width, no icon */
+        .email-button {
+            background: #f8fafc;
+            border-radius: 18px;
+            padding: 18px 12px;
+            border: 1.5px solid #e2f0f5;
+            transition: all 0.2s ease;
+            text-align: center;
+            cursor: pointer;
+            margin-top: 16px;
+            width: 100%;
+        }
+        .email-button:active {
+            transform: scale(0.98);
+            background: #f1f5f9;
+        }
+        .email-button .email-address {
+            font-size: 16px;
+            font-weight: 600;
+            color: #0f172a;
+            letter-spacing: -0.2px;
+        }
+        
+        /* Compact WhatsApp Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            backdrop-filter: blur(2px);
+        }
+        .modal-content {
+            background: white;
+            border-radius: 28px;
+            width: 260px;
+            max-width: 75%;
+            padding: 18px 16px;
+            text-align: center;
+            animation: fadeInUp 0.2s ease;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+        }
+        .modal-content h3 {
+            font-size: 17px;
+            font-weight: 700;
+            margin-bottom: 14px;
+            color: #0f172a;
+        }
+        .modal-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .modal-btn {
+            padding: 10px 12px;
+            border-radius: 40px;
+            border: none;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.2s;
+            width: 100%;
+        }
+        .chat-btn {
+            background: #25D366;
+            color: white;
+        }
+        .call-btn {
+            background: #4A90E2;
+            color: white;
+        }
+        .cancel-btn {
+            background: #eef2f6;
+            color: #334155;
+            margin-top: 2px;
+        }
+        .modal-btn:active {
+            transform: scale(0.97);
+            opacity: 0.9;
+        }
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .footer {
+            padding: 20px;
+            text-align: center;
+            border-top: 1px solid #e2f0f5;
+            color: #64748b;
+            font-size: 12px;
+            background: #f8fafc;
+        }
+        
+        .footer p {
+            margin: 6px 0;
+        }
+        
+        .qr-text {
+            color: #4A90E2;
+            font-weight: 600;
+        }
+        
+        .toast {
+            position: fixed;
+            bottom: 24px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #1e293b;
+            color: white;
+            padding: 10px 18px;
+            border-radius: 40px;
+            font-size: 13px;
+            font-weight: 500;
+            z-index: 1001;
+            opacity: 0;
+            transition: opacity 0.25s ease;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            white-space: nowrap;
+            pointer-events: none;
+        }
+        
+        .toast.show {
+            opacity: 1;
+        }
+        
+        /* Very small screens */
+        @media (max-width: 380px) {
+            .contact-row {
+                gap: 10px;
+            }
+            .contact-item {
+                padding: 12px 6px;
+            }
+            .icon-container {
+                width: 42px;
+                height: 42px;
+            }
+            .icon-container i {
+                font-size: 20px;
+            }
+            .item-name {
+                font-size: 13px;
+            }
+            .company-name {
+                font-size: 22px;
+            }
+            .modal-content {
+                width: 240px;
+                padding: 14px 12px;
+            }
+            .modal-content h3 {
+                font-size: 16px;
+            }
+            .modal-btn {
+                padding: 8px 10px;
+                font-size: 14px;
+            }
+        }
+        
+        .contact-item, .email-button, .modal-btn {
+            touch-action: manipulation;
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="card">
+        <div class="header">
+            <div class="logo-container">
+                <div class="logo">
+                    <img src="https://image2url.com/r2/default/images/1770628709417-b1f8ed5a-6792-4821-8a21-53f8d58a9802.png" alt="YetiWings Logo">
+                </div>
+            </div>
+            <h1 class="company-name">YetiWings Tours & Travels</h1>
+            <p class="tagline">Your Gateway to the Himalayas</p>
+        </div>
+        
+        <div class="contact-section">
+            <!-- Row 1: Website + Facebook -->
+            <div class="contact-row">
+                <a href="https://yetiwingstours.github.io" target="_blank" class="contact-item website" rel="noopener noreferrer">
+                    <div class="icon-container"><i class="fas fa-globe"></i></div>
+                    <div class="item-name">Website</div>
+                    <div class="item-value">yetiwingstours.github.io</div>
+                </a>
+                <a href="https://www.facebook.com/people/YetiWings-Tours-Travels/61555792936999/" target="_blank" class="contact-item facebook" rel="noopener noreferrer">
+                    <div class="icon-container"><i class="fab fa-facebook-f"></i></div>
+                    <div class="item-name">Facebook</div>
+                    <div class="item-value">YetiWings Tours</div>
+                </a>
+            </div>
+            
+            <!-- Row 2: WhatsApp Chetnath + WhatsApp Niranjan -->
+            <div class="contact-row">
+                <div class="contact-item whatsapp" data-name="Chetnath Ghimire" data-number="9779743926978">
+                    <div class="icon-container"><i class="fab fa-whatsapp"></i></div>
+                    <div class="item-name">Chetnath Ghimire</div>
+                    <div class="item-value">9779743926978</div>
+                </div>
+                <div class="contact-item whatsapp" data-name="Niranjan Silwal" data-number="9779743926979">
+                    <div class="icon-container"><i class="fab fa-whatsapp"></i></div>
+                    <div class="item-name">Niranjan Silwal</div>
+                    <div class="item-value">9779743926979</div>
+                </div>
+            </div>
+            
+            <!-- Row 3: Instagram + TikTok -->
+            <div class="contact-row">
+                <a href="https://www.instagram.com/yetiwings_tours_and_travels" target="_blank" class="contact-item instagram" rel="noopener noreferrer">
+                    <div class="icon-container"><i class="fab fa-instagram"></i></div>
+                    <div class="item-name">Instagram</div>
+                    <div class="item-value">@yetiwings_tours</div>
+                </a>
+                <a href="https://www.tiktok.com/@yetiwings.tours.t" target="_blank" class="contact-item tiktok" rel="noopener noreferrer">
+                    <div class="icon-container"><i class="fab fa-tiktok"></i></div>
+                    <div class="item-name">TikTok</div>
+                    <div class="item-value">@yetiwings.tours.t</div>
+                </a>
+            </div>
+            
+            <!-- Email button (only address, no icon) -->
+            <div class="email-button" id="emailButton">
+                <div class="email-address">infoyetiwings@gmail.com</div>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p>© <span id="currentYear"></span> YetiWings Tours & Travels</p>
+            <p class="qr-text">📞 Chetnath & Niranjan</p>
+        </div>
+    </div>
+
+    <!-- Compact Modal for WhatsApp options -->
+    <div id="whatsappModal" class="modal">
+        <div class="modal-content">
+            <h3 id="modalContactName"></h3>
+            <div class="modal-buttons">
+                <button id="chatBtn" class="modal-btn chat-btn">💬 WhatsApp Chat</button>
+                <button id="callBtn" class="modal-btn call-btn">📞 Phone Call</button>
+                <button id="cancelBtn" class="modal-btn cancel-btn">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="toast" id="toast">Copied!</div>
+
+    <script>
+        (function() {
+            document.getElementById('currentYear').textContent = new Date().getFullYear();
+            
+            // Email copy
+            const emailBtn = document.getElementById('emailButton');
+            const toast = document.getElementById('toast');
+            
+            function showToastMessage(msg) {
+                toast.textContent = msg;
+                toast.classList.add('show');
+                setTimeout(() => toast.classList.remove('show'), 2000);
+            }
+            
+            emailBtn.addEventListener('click', function() {
+                const email = 'infoyetiwings@gmail.com';
+                if (navigator.clipboard && navigator.clipboard.writeText) {
+                    navigator.clipboard.writeText(email)
+                        .then(() => showToastMessage('Email copied!'))
+                        .catch(() => fallbackCopy(email));
+                } else {
+                    fallbackCopy(email);
+                }
+            });
+            
+            function fallbackCopy(text) {
+                const textarea = document.createElement('textarea');
+                textarea.value = text;
+                document.body.appendChild(textarea);
+                textarea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textarea);
+                showToastMessage('Email copied!');
+            }
+            
+            // WhatsApp modal (compact)
+            const modal = document.getElementById('whatsappModal');
+            const modalContactName = document.getElementById('modalContactName');
+            const chatBtn = document.getElementById('chatBtn');
+            const callBtn = document.getElementById('callBtn');
+            const cancelBtn = document.getElementById('cancelBtn');
+            let currentNumber = '';
+            
+            function openModal(name, number) {
+                currentNumber = number;
+                modalContactName.innerText = name;
+                modal.style.display = 'flex';
+                document.body.style.overflow = 'hidden';
+            }
+            
+            function closeModal() {
+                modal.style.display = 'none';
+                document.body.style.overflow = '';
+                currentNumber = '';
+            }
+            
+            chatBtn.onclick = function() {
+                if (currentNumber) window.open(`https://wa.me/${currentNumber}`, '_blank');
+                closeModal();
+            };
+            callBtn.onclick = function() {
+                if (currentNumber) window.location.href = `tel:${currentNumber}`;
+                closeModal();
+            };
+            cancelBtn.onclick = closeModal;
+            modal.addEventListener('click', function(e) { if (e.target === modal) closeModal(); });
+            
+            document.querySelectorAll('.contact-item.whatsapp').forEach(item => {
+                item.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const name = this.getAttribute('data-name');
+                    const number = this.getAttribute('data-number');
+                    if (name && number) openModal(name, number);
+                });
+            });
+            
+            // Logo fallback
+            const logoImg = document.querySelector('.logo img');
+            if (logoImg) {
+                logoImg.onerror = function() {
+                    this.style.display = 'none';
+                    const parent = this.parentElement;
+                    if (parent) parent.innerHTML = '<i class="fas fa-mountain-sun" style="font-size: 42px; color: #4A90E2; line-height: 90px;"></i>';
+                };
+            }
+            
+            // Favicon fallback
+            const favicon = document.querySelector('link[rel="icon"]');
+            if (favicon) {
+                favicon.onerror = function() {
+                    const canvas = document.createElement('canvas');
+                    canvas.width = 32;
+                    canvas.height = 32;
+                    const ctx = canvas.getContext('2d');
+                    const grad = ctx.createLinearGradient(0, 0, 32, 32);
+                    grad.addColorStop(0, '#87CEEB');
+                    grad.addColorStop(1, '#4A90E2');
+                    ctx.fillStyle = grad;
+                    ctx.fillRect(0, 0, 32, 32);
+                    ctx.fillStyle = 'white';
+                    ctx.beginPath();
+                    ctx.moveTo(6, 22);
+                    ctx.lineTo(16, 8);
+                    ctx.lineTo(26, 22);
+                    ctx.fill();
+                    const newFavicon = document.createElement('link');
+                    newFavicon.rel = 'icon';
+                    newFavicon.href = canvas.toDataURL('image/png');
+                    document.head.appendChild(newFavicon);
+                };
+            }
+        })();
+    </script>
+</body>
+</html>
